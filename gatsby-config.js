@@ -8,7 +8,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `mulejs`,
-        icon: `content/assets/img/logo.jpg`,
+        icon: `content/assets/img/logo.png`,
         short_name: `mulejs`,
         start_url: `/`,
         background_color: `#2C5282`,

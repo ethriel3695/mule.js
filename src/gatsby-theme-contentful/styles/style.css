@@ -1,7 +1,10 @@
+/** purgecss start ignore */
 @tailwind base;
-
 html body {
-    @apply .bg-white .font-sans .antialiased;
+    @apply font-serif;
+    @apply leading-loose;
+    @apply antialiased;
+    @apply text-center;
 }
 
 h1 {
@@ -21,7 +24,7 @@ h2 {
 }
 
 h3 {
-    @apply text-2xl;
+    @apply text-3xl;
 
     @apply font-semibold;
 
@@ -53,7 +56,13 @@ h6 {
 }
 
 a {
-    @apply text-blue-600 underline;
+    @apply text-purple-600;
+    @apply no-underline;
+}
+
+a:hover {
+    @apply text-purple-800;
+    @apply shadow-md;
 }
 
 p {
@@ -68,49 +77,49 @@ ol {
     @apply list-decimal;
 }
 
-td {
-    @apply pr-5;
+ul {
+    @apply list-disc;
 }
 
 @tailwind components;
 
-.bgPrimary {
+.bg-primary {
     @apply text-white bg-purple-700;
 }
 
-.bgPrimary:hover {
+.bg-primary:hover {
     @apply bg-purple-800;
 }
 
-.textPrimary {
-    @apply text-purple-600 !important;;
+.text-primary {
+    @apply text-purple-700 !important;;
 }
 
-.textPrimary:hover {
-    @apply text-purple-700 !important;
+.text-primary:hover {
+    @apply text-purple-800 !important;
 }
 
-.borderPrimary {
+.border-primary {
     @apply border-purple-700;
 
     @apply text-gray-900;
 }
 
-.borderPrimaryActive {
+.border-primary:hover {
+    @apply border-purple-700;
+}
+
+.border-primary-active {
     @apply border-purple-700 !important;
 
     @apply text-gray-900 !important;
-}
-
-.borderPrimary:hover {
-    @apply border-purple-700;
 }
 
 .swiper-pagination-bullet {
     @apply .bg-white;
 }
 
-.headerLogoSize {
+.header-logo-size {
     width: 6rem;
 }
 
@@ -135,3 +144,4 @@ td {
         @apply .px-8;
     }
 }
+/* purgecss end ignore */

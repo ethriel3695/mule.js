@@ -1,0 +1,145 @@
+---
+slug: /blog/gatsby-sb-tailwind-integration
+label: Gatsby SB and Tailwind Integration
+title: Gatsby SB and Tailwind Integration
+description: This is a guide to integrating storybook into gatsby with tailwindcss support
+date: 2020-07-11
+categories: ['react', 'gatsby', 'tailwind', 'storybook', 'config', 'blog']
+published: true
+---
+
+## Integrate Storybook with TailwindCSS support into a GatsbyJS site
+
+How much time would it save you if projects could be built faster and more reliably?
+
+In my experience, one of the most time consuming portions of a new website or application
+is the creation of components and overall UI
+
+Even with Component libraries like <a href='https://material-ui.com' target='_blank' rel='noopener noreferrer'>Material-UI</a>
+or <a href='https://tailwindcss.com' target='_blank' rel='noopener noreferrer'>TailwindCSS</a>
+it still takes entirely too long to build proper UI Components
+
+```bash
+npm install -g @storybook/cli
+sb init --type react
+```
+
+**Special Note** if you are using a Gatsby Theme
+cd into your workspace before running the `sb init` command
+
+```bash
+cd gatsby-theme-contentful
+sb init --type react
+```
+
+In order to get the storybook webpack file to register Components correctly override the file
+`.storybook/main.js` with the following:
+
+```js
+const path = require('path');
+module.exports = {
+  // You will want to change this to wherever your Stories will live.
+  stories: ['../src/stories/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+  webpackFinal: async config => {
+    // Transpile Gatsby module because Gatsby includes un-transpiled ES6 code.
+    config.module.rules[0].exclude = [/node_modules\/(?!(gatsby)\/)/];
+    // use installed babel-loader which is v8.0-beta (which is meant to work with @babel/core@7)
+    config.module.rules[0].use[0].loader = require.resolve('babel-loader');
+    // use @babel/preset-react for JSX and env (instead of staged presets)
+    config.module.rules[0].use[0].options.presets = [
+      require.resolve('@babel/preset-react'),
+      require.resolve('@babel/preset-env'),
+    ];
+    config.module.rules[0].use[0].options.plugins = [
+      // use @babel/plugin-proposal-class-properties for class arrow functions
+      require.resolve('@babel/plugin-proposal-class-properties'),
+      // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
+      require.resolve('babel-plugin-remove-graphql-queries'),
+    ];
+    // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
+    config.resolve.mainFields = ['browser', 'module', 'main'];
+
+    config.module.rules.push({
+      test: /\\.css$/,
+      use: [
+        // Loader for webpack to process CSS with PostCSS
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true,
+            config: {
+              path: './.storybook/',
+            },
+          },
+        },
+      ],
+      include: path.resolve(__dirname, '../'),
+    });
+
+    return config;
+  },
+};
+```
+
+```bash
+yarn add -D babel-preset-react-app
+```
+
+Then, create a file in the `/.storybook` directory
+and name it `preview.js` with the following:
+
+```js
+import { action } from '@storybook/addon-actions';
+// import { GlobalStyle } from '../src/shared/global';
+// We will address this later.
+import '../src/styles/style.css';
+import React from 'react';
+// Add viewport addon for mobile responsive development.
+import { addParameters, configure } from '@storybook/react';
+// import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+global.__BASE_PATH__ = '';
+// automatically import all files ending in *.stories.js
+configure([require.context('../src/stories', true, /\.stories\.js$/)], module);
+// Gatsby's Link overrides:
+// Gatsby defines a global called ___loader to prevent its method calls from creating console errors you override it here
+global.___loader = {
+  enqueue: () => {},
+  hovering: () => {},
+};
+// Gatsby internal mocking to prevent unnecessary errors in storybook testing environment
+global.__PATH_PREFIX__ = '';
+// This is to utilized to override the window.___navigate method Gatsby defines and uses to report what path a Link would be taking us to if it wasn't inside a storybook
+window.___navigate = pathname => {
+  action('NavigateTo:')(pathname);
+};
+```
+
+The next step is to create a folder in your `src` directory and name it `stories`
+Add your stories to this folder
+
+Here is a setup example for a Button component
+
+```js
+import React from 'react';
+import { action } from '@storybook/addon-actions';
+import Link from 'gatsby-link';
+import Button from '../components/Button/Button';
+
+export default {
+  title: 'Button with inherit styling from the style.css file',
+  component: Button,
+};
+
+export const ExternalLinkButton = () => (
+  <Button key={'link-button'} href={'https://mulejs.org'}>
+    MuleJS
+  </Button>
+);
+
+export const InternalRouteButton = () => (
+  <Button key={`internal-route-button`} to={`/blog`}>
+    Blog
+  </Button>
+);
+```
