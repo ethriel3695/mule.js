@@ -77,7 +77,11 @@ ol {
     @apply list-decimal;
 }
 
-ul {
+h4 + ul {
+    @apply list-disc;
+}
+
+h5 + ul {
     @apply list-disc;
 }
 
@@ -126,7 +130,7 @@ ul {
 @tailwind utilities;
 
 .container {
-    @apply .max-w-screen-xl .mx-auto .px-4;
+    @apply .max-w-screen-lg .mx-auto .px-4;
 }
 
 @screen md {
