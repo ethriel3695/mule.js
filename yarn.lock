@@ -6983,10 +6983,10 @@ gatsby-telemetry@^1.3.16:
     stack-utils "1.0.2"
     uuid "3.4.0"
 
-gatsby-theme-contentful@^0.1.11:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/gatsby-theme-contentful/-/gatsby-theme-contentful-0.1.11.tgz#9b5339124b75995243fd5fbc1d1cab5e14b2e4b8"
-  integrity sha512-nUn8BGFEMdtXc5+1q9ZsQcVAnnWhTiqObQlWxrcT6Yye/JtQFoRNtusG/QXX325IG5XgPL0nAMw3aAIy5MKpjQ==
+gatsby-theme-contentful@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/gatsby-theme-contentful/-/gatsby-theme-contentful-0.1.12.tgz#b82b848fd5e5045e8e6cc9d99ee77b09a3845512"
+  integrity sha512-eGFrW/FQlYRjEMjuxpCtB8GGrhG/nL7jwBKcfq1C8lbnE4fzopK3Al7rVZLvY2zcc6cExg3DLjGH5nqnq5jHVQ==
   dependencies:
     "@auth0/auth0-spa-js" "^1.6.4"
     "@contentful/rich-text-react-renderer" "^13.4.0"
@@ -7026,6 +7026,7 @@ gatsby-theme-contentful@^0.1.11:
     gatsby-transformer-remark "^2.6.39"
     gatsby-transformer-sharp "^2.3.7"
     history "^4.10.1"
+    prism-react-renderer "^1.1.1"
     react-google-maps "^9.4.5"
     react-headroom "^3.0.0"
     react-helmet "^5.2.1"
@@ -12184,6 +12185,11 @@ pretty-hrtime@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
+
+prism-react-renderer@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.1.1.tgz#1c1be61b1eb9446a146ca7a50b7bcf36f2a70a44"
+  integrity sha512-MgMhSdHuHymNRqD6KM3eGS0PNqgK9q4QF5P0yoQQvpB6jNjeSAi3jcSAz0Sua/t9fa4xDOMar9HJbLa08gl9ug==
 
 probe-image-size@^4.1.1:
   version "4.1.1"
