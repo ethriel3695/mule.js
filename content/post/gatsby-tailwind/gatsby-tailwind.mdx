@@ -1,0 +1,278 @@
+---
+slug: /blog/gatsby-tailwind-integration
+label: Gatsby and TailwindCSS Integration
+title: Gatsby and TailwindCSS Integration
+description: This is a guide to integrating TailwindCSS into Gatsby
+date: 2020-07-18
+categories: ['react', 'gatsby', 'tailwind', 'config', 'blog']
+published: true
+---
+
+import { ctaData } from '../ctaData.js';
+import { CallToAction } from 'gatsby-theme-contentful/src/components/Section/CallToAction';
+import { ExternalLink } from 'gatsby-theme-contentful/src/components/Link/ExternalLink';
+
+## Integrate TailwindCSS into a GatsbyJS site
+
+How much time would it save you if projects could be built faster and more reliably?
+
+In my experience, one of the most time consuming portions of a new website or application
+is the creation of components and overall UI
+
+I used <ExternalLink>Material-UI</ExternalLink>
+for years but one thing I found is that it took entirely too much time to build components
+Add to that the complexity of having special props only applicable to the Material UI components
+and I found myself constantly reverencing the documentation
+
+Then one day I was listening to a podcast on one of my favorite channels <ExternalLink> React Podcast </ExternalLink>
+and heard about a minimalist design library that was easy to use and quick to get started <ExternalLink>TailwindCSS</ExternalLink>
+
+### Thank you for TailwindCSS!
+
+Tailwind is exceptional because it is easy to set up and really easy to use
+and the styling is class based just like the popular styling library Bootstrap
+
+The main complaint I have with Bootstrap is that there is a heavy requirement on JQuery and
+quite a bit of unnecessary CSS included in the end minified bundle
+
+Tailwind is just CSS and also utilizes a `purge` option which removes all the unused CSS when you build
+you Gatsby project <ExternalLink>
+Learn more about Gatsby </ExternalLink>
+
+Let's configure Tailwind CSS into your Gatsby project
+
+### Getting Started
+
+In the root of your gatsby directory, open a command terminal
+and run the following:
+
+```bash
+yarn add tailwindcss gatsby-plugin-postcss
+```
+
+`gatsby-plugin-postcss` is necessary because Tailwing requires PostCSS to load styles
+and bundle properly
+
+Add `gatsby-plugin-postcss` to your `gatsby-config.js` file towards the top of the plugin array
+for example
+
+```js
+plugins: [
+  mdx && {
+    resolve: `gatsby-plugin-mdx`,
+    options: {
+      extensions: [`.mdx`, `.md`],
+      defaultLayouts: {
+        default: require.resolve('./src/components/layout.js'),
+      },
+      gatsbyRemarkPlugins: [
+        {
+          resolve: `gatsby-remark-images`,
+          options: {
+            // should this be configurable by the end-user?
+            maxWidth: 1380,
+            linkImagesToOriginal: false,
+          },
+        },
+        { resolve: `gatsby-remark-copy-linked-files` },
+        { resolve: `gatsby-remark-numbered-footnotes` },
+        { resolve: `gatsby-remark-smartypants` },
+      ],
+      remarkPlugins: [require(`remark-slug`)],
+    },
+  },
+  `'gatsby-plugin-postcss',`,
+];
+```
+
+In the root of your project, add the file `postcss.config.js` with the following
+
+```js
+module.exports = () => ({
+  plugins: [require('tailwindcss'), require(`autoprefixer`)()],
+});
+```
+
+Then add the file `tailwind.config.js` to the root of your project
+
+```js
+module.exports = {
+  // Purge is important because it removes all unused styles from your build
+  purge: true,
+  theme: {
+    container: {
+      center: true,
+      padding: '1.25rem',
+    },
+  },
+  variants: {
+    opacity: ['responsive', 'hover', 'focus', 'group-hover'],
+    display: ['responsive', 'hover', 'focus', 'last'],
+    backgroundColor: ['hover', 'focus', 'active'],
+    borderColor: ['hover', 'focus', 'active'],
+    textColor: ['hover', 'focus', 'active'],
+  },
+};
+```
+
+The last file we will add is a `styles/style.css` to your `src` folder
+
+**NOTE:**
+
+`@tailwind base` overrides the base styles of elements
+Also, overriding the base styles is not a requirement
+and you can opt to use the Tailwind pre-defined styles
+
+`@tailwind components` defines custom styles
+
+`@tailwind utilities` Styles for breakpoints (sm, md, lg)
+
+```css
+@tailwind base;
+html body {
+  @apply font-serif;
+  @apply leading-loose;
+  @apply antialiased;
+  @apply text-center;
+}
+
+h1 {
+  @apply text-5xl;
+
+  @apply font-bold;
+
+  @apply my-2;
+}
+
+h2 {
+  @apply text-4xl;
+
+  @apply font-semibold;
+
+  @apply my-2;
+}
+
+h3 {
+  @apply text-3xl;
+
+  @apply font-semibold;
+
+  @apply my-2;
+}
+
+h4 {
+  @apply text-2xl;
+
+  @apply font-semibold;
+
+  @apply my-2;
+}
+
+h5 {
+  @apply text-xl;
+
+  @apply font-semibold;
+
+  @apply my-2;
+}
+
+h6 {
+  @apply text-lg;
+
+  @apply font-semibold;
+
+  @apply my-2;
+}
+
+a {
+  @apply text-purple-600;
+  @apply no-underline;
+}
+
+a:hover {
+  @apply text-purple-800;
+  @apply shadow-md;
+}
+
+p {
+  @apply my-3;
+}
+
+article {
+  @apply px-4;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+ul {
+  @apply list-disc;
+}
+
+@tailwind components;
+
+.bg-primary {
+  @apply text-white bg-purple-700;
+}
+
+.bg-primary:hover {
+  @apply bg-purple-800;
+}
+
+.text-primary {
+  @apply text-purple-700 !important;
+}
+
+.text-primary:hover {
+  @apply text-purple-800 !important;
+}
+
+.border-primary {
+  @apply border-purple-700;
+
+  @apply text-gray-900;
+}
+
+.border-primary:hover {
+  @apply border-purple-700;
+}
+
+.border-primary-active {
+  @apply border-purple-700 !important;
+
+  @apply text-gray-900 !important;
+}
+
+.swiper-pagination-bullet {
+  @apply .bg-white;
+}
+
+.header-logo-size {
+  width: 6rem;
+}
+
+@tailwind utilities;
+
+.container {
+  @apply .max-w-screen-xl .mx-auto .px-4;
+}
+
+@screen md {
+  .container {
+    @apply .px-6;
+  }
+
+  .swiper-pagination-bullet {
+    @apply .w-3 .h-3;
+  }
+}
+
+@screen lg {
+  .container {
+    @apply .px-8;
+  }
+}
+```
+
+<CallToAction section={ctaData.section} />

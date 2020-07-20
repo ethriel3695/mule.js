@@ -8,6 +8,10 @@ categories: ['react', 'gatsby', 'tailwind', 'storybook', 'config', 'blog']
 published: true
 ---
 
+import { ctaData } from '../ctaData.js';
+import { CallToAction } from 'gatsby-theme-contentful/src/components/Section/CallToAction';
+import { ExternalLink } from 'gatsby-theme-contentful/src/components/Link/ExternalLink';
+
 ## Integrate Storybook with TailwindCSS support into a GatsbyJS site
 
 How much time would it save you if projects could be built faster and more reliably?
@@ -15,22 +19,66 @@ How much time would it save you if projects could be built faster and more relia
 In my experience, one of the most time consuming portions of a new website or application
 is the creation of components and overall UI
 
-Even with Component libraries like <a href='https://material-ui.com' target='_blank' rel='noopener noreferrer'>Material-UI</a>
-or <a href='https://tailwindcss.com' target='_blank' rel='noopener noreferrer'>TailwindCSS</a>
-it still takes entirely too long to build proper UI Components
+Even with third party tools such as <ExternalLink>Material-UI</ExternalLink> or <ExternalLink>TailwindCSS </ExternalLink>
+it still takes entirely too long to build reusable UI Components
+
+In addition to building the component we also have to configure it with events
+and integrate it into the application to make sure it works properly
+
+How are we supposed to get anything done!
+
+### Enter Storybook!
+
+Storybook provides an environment in development where we can create the components
+in isolation
+
+This is huge because we can create the component and make sure it functions as
+intended with `stories`
+
+Another major bonus is that I can test events (click, hover, etc) and different props
+
+Storybook has some great documentation for configuration with many different JavaScript projects <ExternalLink>Storbybook</ExternalLink>
+
+One configuration that is missing is integrating Storybook into GatsbyJS with TailwindCSS support<ExternalLink>Learn more about Gatsby </ExternalLink>and <ExternalLink>TailwindCSS </ExternalLink>
+
+We will focus on configuring Storybook into a Gatsby project that uses TailwindCSS
+
+### Getting Started
+
+If you do not already have gatsby installed then open a command terminal and run
+
+```bash
+npm install -g gatsby-cli
+```
+
+I have a Gatsby project already configured with TailwindCSS
+
+```bash
+git clone https://github.com/ethriel3695/theme-contentful-quick-start.git
+
+cd theme-contentful-quick-start
+```
+
+4. Open the repo in your favorite code editor
+
+   - I use VS Code so I run `code .`
+
+In the same terminal or in the VS Code terminal run
 
 ```bash
 npm install -g @storybook/cli
-sb init --type react
 ```
 
-**Special Note** if you are using a Gatsby Theme
-cd into your workspace before running the `sb init` command
+The command installs the Storybook cli globally so you can use it across various projects
 
-```bash
-cd gatsby-theme-contentful
-sb init --type react
-```
+We then want to run `yarn` to install the quick-start packages and then
+`sb init --type react` in your project directory
+
+The `--type react` is important because Storybook may not be able to detect
+the application type you are building
+
+The `sb init --type react` command will install `.storybook` in the root directory of your project
+It also installs all the Storybook dependencies and will create a file `.storybook/main.js`
 
 In order to get the storybook webpack file to register Components correctly override the file
 `.storybook/main.js` with the following:
@@ -38,7 +86,7 @@ In order to get the storybook webpack file to register Components correctly over
 ```js
 const path = require('path');
 module.exports = {
-  // You will want to change this to wherever your Stories will live.
+  // You will want to change this to wherever your Stories will be
   stories: ['../src/stories/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
   webpackFinal: async config => {
@@ -82,6 +130,8 @@ module.exports = {
 };
 ```
 
+Then run
+
 ```bash
 yarn add -D babel-preset-react-app
 ```
@@ -92,8 +142,8 @@ and name it `preview.js` with the following:
 ```js
 import { action } from '@storybook/addon-actions';
 // import { GlobalStyle } from '../src/shared/global';
-// We will address this later.
-import '../src/styles/style.css';
+// These are the global styles for TailwindCSS
+import '../src/gatsby-theme-contentful/styles/style.css';
 import React from 'react';
 // Add viewport addon for mobile responsive development.
 import { addParameters, configure } from '@storybook/react';
@@ -119,12 +169,11 @@ The next step is to create a folder in your `src` directory and name it `stories
 Add your stories to this folder
 
 Here is a setup example for a Button component
+Add a file `Button.stories.js` and the following:
 
 ```js
 import React from 'react';
-import { action } from '@storybook/addon-actions';
-import Link from 'gatsby-link';
-import Button from '../components/Button/Button';
+import Button from 'gatsby-theme-contentful/src/components/Button/Button';
 
 export default {
   title: 'Button with inherit styling from the style.css file',
@@ -143,3 +192,18 @@ export const InternalRouteButton = () => (
   </Button>
 );
 ```
+
+The amazing thing is that you don't need to configure Contentful
+and get all the other pieces of the quick-start ready because
+Storybook will run independently
+
+Just run `yarn run storybook` and Storybook will fire up!
+
+In summary, Storybook is a great tool to use if you don't already have
+a design library or standard and want to build components quickly
+without having to configure a project to work with each component
+
+In combination with TailwindCSS, you have a quick and easy way to
+create components and build the UI part of an application quickly
+
+<CallToAction section={ctaData.section} />
