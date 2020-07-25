@@ -62,7 +62,6 @@ a {
 
 a:hover {
     @apply text-purple-800;
-    @apply shadow-md;
 }
 
 p {

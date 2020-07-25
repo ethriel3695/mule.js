@@ -33,7 +33,7 @@ module.exports = {
       facebook: 'https://www.facebook.com/reuben.ellis.338',
       twitter: '',
       instagram: '',
-      github: 'https://www.github.com/ethriel3695',
+      github: 'https://www.github.com/ethriel3695/mule.js',
       email: 'mailto:ethriel3695@gmail.com',
     },
     externalLinks: [{ label: '', link: '' }],

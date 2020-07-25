@@ -9,7 +9,9 @@ categories:
 published: true
 ---
 
-import Link from 'gatsby-link';
+import { ctaData } from '../ctaData.js';
+import { CallToAction } from '../../../node_modules/gatsby-theme-contentful/src/components/Section/CallToAction';
+import { ExternalLink } from '../../../node_modules/gatsby-theme-contentful/src/components/Link/ExternalLink';
 
 #### There are four things I love in this world
 
@@ -24,7 +26,34 @@ There are so many frameworks out there now that make web development easier
 However, I have yet to find a tool that allows me to build dynamic, modern web applications quickly and easily
 There is so much configuration involved and reading docs, watching tutorials, copying Github repository snippets and it is tiresome
 
-##### MuleJS is my desire to fix this problem
+#### The Vision
+
+My vision is to reduce the barrier of entry to be a Software Engineer. In 2020 and beyond, UI design and
+project configuration "should" be easy so that anyone can get started.
+
+A stepping stone for people entering the Software Industry!
+
+The reality is that a Software Engineer role would adapt to provide new solutions
+we haven't even thought about yet for web development but first we absolutely need
+easy tools to create projects quickly and efficiently.
+
+The process of UI creation and project configuration is ideally semi-automated or
+fully automated in the near future.
+
+I fully recognize that I may not be the one that solves this **BUT** I am sure as
+hell going to contribute to the solution!
+
+#### What currently exists
+
+There are already plenty of "no-code" solutions rising up in the industry such as<ExternalLink href="https://webflow.com/"> Webflow, </ExternalLink><ExternalLink href="https://www.squarespace.com/">SquareSpace, </ExternalLink><ExternalLink href="https://www.shopify.com/">Shopify, </ExternalLink> <ExternalLink href="https://thenextweb.com/neural/2020/07/23/openais-new-gpt-3-language-explained-in-under-3-minutes-syndication/">GPT-3 by OpenAI</ExternalLink> and many more!
+
+The problem with most of these current solutions is they get you started but there is a Chasm between getting you started and building real, reusable and sustainable projects!
+In addition, some of these tools are not intuitive to use and require a bit of work to even build something small.
+Bridging that gap...
+
+**Enter MuleJS**!
+
+##### MuleJS is my desire to provide a solution
 
 - Less project configuration
 - CMS driven for easy content creation
@@ -32,9 +61,14 @@ There is so much configuration involved and reading docs, watching tutorials, co
 - Ready for production including Google Analytics, automatic bundling, static site generation, SEO with React Helmet
 - The goal is to be able to avoid all these complex configurations and just start on your project from the beginning
 
-**Please NOTE** this is not another framework
+**Please NOTE** this is not another **FRAMEWORK**
 
-I'm building MuleJS utilizing GatsbyJS, Contentful, Auth0, TailwindCSS, Storybook
+Frameworks have altered the course of web development for the future and in a great way!
+However, they take lot's of learning and configuration which is what we **DEMAND** less of!
 
-If you want to follow our progress (Penny the Mule and I)
-and get early access to repos, docs, tutorials and more subscribe to the newsletter <Link to="/">Here</Link>
+I've built MuleJS utilizing GatsbyJS, Contentful, Auth0, TailwindCSS, Storybook
+
+If you want to follow our progress **(Penny the Mule and I)**
+subscribe to the newsletter and let's go on an adventure!
+
+<CallToAction section={ctaData.section} />
