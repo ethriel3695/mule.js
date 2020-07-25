@@ -21,9 +21,10 @@ module.exports = {
     },
   ],
   siteMetadata: {
-    title: `MuleJS`,
+    title: `MuleJS - Save TIME configuring your web apps and build REAL projects`,
     author: `Reuben Ellis`,
-    description: `Move your project from start to finish with speed, precision and less configuration!`,
+    description: `MuleJS utilizes GatsbyJS Themes for code reuse, faster project builds and easy and modern web development
+    Gatsby Theme Contentul utilizes GatsbyJS, Contentful CMS, Auth0, TailwindCSS and Storybook. Bridge the GAP to being a Software Engineer!`,
     greeting: ``,
     copyright: `Copyright © 2020 Reuben Ellis LLC`,
     loginDesc: '',
