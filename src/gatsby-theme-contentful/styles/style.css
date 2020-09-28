@@ -60,10 +60,6 @@ a {
     @apply no-underline;
 }
 
-a:hover {
-    @apply text-purple-800;
-}
-
 p {
     @apply my-3;
 }
