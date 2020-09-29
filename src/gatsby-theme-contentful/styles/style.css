@@ -70,6 +70,15 @@ article {
 
 ol {
     @apply list-decimal;
+    list-style-position: inside;
+}
+
+li p {
+    display: inline-block;
+}
+
+ul {
+    list-style-position: inside;
 }
 
 h4 + ul {
