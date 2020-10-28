@@ -39,5 +39,17 @@ module.exports = {
     },
     externalLinks: [{ label: '', link: '' }],
     hasNotifications: false,
+    categories: [
+      'react',
+      'gatsby',
+      'gatsbyjs',
+      'themes',
+      'web development',
+      'contentful',
+      'production',
+      'tailwindcss',
+      'storybook',
+    ],
+    hasCTA: true,
   },
 };
